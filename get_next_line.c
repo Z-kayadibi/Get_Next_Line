@@ -45,15 +45,12 @@ char	*deneme(int *rd, int fd, char *after)
 	char	*buffer;
 	buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1); 
 	*rd = read(fd, buffer, BUFFER_SIZE);
-	if (*rd == 0)
-		return (free(after), free(buffer), NULL);
-	if (*rd == -1)
+	if (*rd == -1 )
 	{
 		free(after);
 		free(buffer);
 		return (NULL);
 	}
-	buffer[*rd] = '\0';
 	after = ft_strjoin(after, buffer);
 	if(!after)
 		return(free(after), free(buffer), NULL);
@@ -65,15 +62,10 @@ char	*get_next_line(int fd)
 	char		*result;
 	int			rd;
 	static char	*after;
+
 	if(fd < 0 || BUFFER_SIZE <= 0)
  		return(NULL);
-	if (!after)
-	{
-		after = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-		after[BUFFER_SIZE + 1] = '\0';
-		if(!after)
-			return (NULL);
-	}
+
 	rd = 1;
 	while (rd > 0 && !findnewline(after))
 	{
@@ -83,5 +75,7 @@ char	*get_next_line(int fd)
 	}
 	result = beforenewline(after);
 	after = after_new_line(after);
+	if (after[0] == 0)
+		free(after);
 	return (result);
 }
