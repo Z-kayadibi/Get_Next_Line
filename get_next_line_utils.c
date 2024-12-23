@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkayadib <zkayadib@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/23 21:30:14 by zkayadib          #+#    #+#             */
+/*   Updated: 2024/12/23 21:54:15 by zkayadib         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "get_next_line.h"
+
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
@@ -35,28 +47,28 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	}
 	return (ft_strlen(src));
 }
+
 char	*after_new_line(char *s)
 {
 	int		i;
 	int		j;
 	char	*ret;
+
 	i = 0;
 	if (!s)
-	{
-		free(s);
 		return (NULL);
-	}
 	while (s[i] && s[i] != '\n')
 		i++;
 	if (s[i] == '\n')
 		i++;
 	ret = ft_calloc(sizeof(char), ft_strlen(s) - i + 1);
+	if (!ret)
+		return (NULL);
 	j = 0;
 	while (s[i])
 	{
 		ret[j++] = s[i++];
 	}
-	ret[j] = '\0';
 	free(s);
 	return (ret);
 }
@@ -68,12 +80,14 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s1)
 		s1 = ft_calloc(sizeof(char), 1);
-	if(s1 == NULL)
-		return NULL;
+	if (s1 == NULL)
+	{
+		return (NULL);
+	}
 	if (!s1 || !s2)
 	{
-		if(s2[0] == '\0')
-		return (free(s1), free(s2), NULL);
+		if (s2[0] == '\0')
+			return (NULL);
 	}
 	i = ft_strlen(s1) + ft_strlen(s2);
 	c = ft_calloc(sizeof(char), i + 1);
@@ -84,9 +98,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	free(s1);
 	return (c);
 }
+
 char	*findnewline(char *str)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	if (!str)
 		return (NULL);
