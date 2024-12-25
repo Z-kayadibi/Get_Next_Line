@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkayadib <zkayadib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 21:30:33 by zkayadib          #+#    #+#             */
-/*   Updated: 2024/12/25 20:36:59 by zkayadib         ###   ########.fr       */
+/*   Created: 2024/12/24 19:36:53 by zkayadib          #+#    #+#             */
+/*   Updated: 2024/12/25 18:14:23 by zkayadib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*findnewline(char *str)
 {
@@ -96,31 +96,30 @@ char	*read_func(int *rd, int fd, char *after)
 		return (NULL);
 	}
 	after = ft_strjoin(after, buffer);
-	free(buffer);
-	return (after);
+	return (free(buffer), after);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*result;
 	int			rd;
-	static char	*after;
+	static char	*after[8192];
 
 	rd = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	while (rd > 0 && !findnewline(after))
+	while (rd > 0 && !findnewline(after[fd]))
 	{
-		after = read_func(&rd, fd, after);
-		if (!after)
+		after[fd] = read_func(&rd, fd, after[fd]);
+		if (!after[fd])
 			return (NULL);
 	}
-	result = beforenewline(after);
-	after = after_new_line(after);
-	if (after && after[0] == 0)
+	result = beforenewline(after[fd]);
+	after[fd] = after_new_line(after[fd]);
+	if (after[fd] && after[fd][0] == 0)
 	{
-		free(after);
-		after = NULL;
+		free(after[fd]);
+		after[fd] = NULL;
 	}
 	return (result);
 }

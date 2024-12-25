@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkayadib <zkayadib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 21:30:14 by zkayadib          #+#    #+#             */
-/*   Updated: 2024/12/25 19:56:09 by zkayadib         ###   ########.fr       */
+/*   Created: 2024/12/24 19:36:40 by zkayadib          #+#    #+#             */
+/*   Updated: 2024/12/25 17:26:17 by zkayadib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -85,7 +85,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1)
 		s1 = ft_calloc(sizeof(char), 1);
 	if (s1 == NULL)
+	{
 		return (NULL);
+	}
 	if (!s1 || !s2)
 	{
 		if (s2[0] == '\0')
